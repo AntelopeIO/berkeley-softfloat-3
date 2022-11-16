@@ -317,7 +317,10 @@ file ( GLOB softfloat_headers "${CMAKE_CURRENT_SOURCE_DIR}/source/include/*.h"
                               "${CMAKE_CURRENT_SOURCE_DIR}/source/8086-SSE/specialize.h" )
 list( APPEND softfloat_sources ${softfloat_headers} )
 add_library ( softfloat STATIC ${softfloat_sources} )
-target_include_directories( softfloat PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/source/include" "${CMAKE_CURRENT_SOURCE_DIR}/source/8086-SSE" "${CMAKE_CURRENT_SOURCE_DIR}/build/Linux-x86_64-GCC" )
+target_include_directories( softfloat PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/source/include>"
+                                      PRIVATE
+                                             "${CMAKE_CURRENT_SOURCE_DIR}/source/8086-SSE"
+                                             "${CMAKE_CURRENT_SOURCE_DIR}/build/Linux-x86_64-GCC" )
 
 if(SOFTFLOAT_INSTALL_COMPONENT)
    set(INSTALL_COMPONENT_ARGS COMPONENT ${SOFTFLOAT_INSTALL_COMPONENT} EXCLUDE_FROM_ALL)
